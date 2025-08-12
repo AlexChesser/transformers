@@ -1,0 +1,19 @@
+%% Sequence: Pipeline inference
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant P as pipeline(task)
+    participant T as Tokenizer
+    participant M as Model
+    participant B as Backend (Torch/TF/JAX)
+
+    U->>P: call(inputs)
+    P->>T: preprocess(inputs)
+    T-->>P: tokenized tensors
+    P->>M: forward(tensors)
+    M->>B: compute on device(s)
+    B-->>M: outputs (logits)
+    M-->>P: outputs
+    P->>T: postprocess / decode
+    T-->>P: strings / structured outputs
+    P-->>U: final predictions

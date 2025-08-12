@@ -1,0 +1,20 @@
+%% Sequence: Hub from_pretrained and push_to_hub
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant A as AutoModel/AutoTokenizer
+    participant H as Hugging Face Hub
+    participant C as Local Cache
+
+    U->>A: from_pretrained("org/model")
+    A->>H: resolve revision, fetch config
+    H-->>A: config.json
+    A->>H: download weights/tokenizer
+    H-->>C: store to local cache
+    C-->>A: file paths
+    A-->>U: instantiated model/tokenizer
+
+    U->>A: save_pretrained(...); push_to_hub()
+    A->>H: create repo (if needed)
+    A->>H: upload config, weights, tokenizer
+    H-->>U: repo URL / revision

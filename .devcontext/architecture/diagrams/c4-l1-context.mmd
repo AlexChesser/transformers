@@ -1,0 +1,22 @@
+%% C4 Level 1: Context — Transformers ecosystem
+%% Keep this diagram focused and small
+flowchart LR
+    user(["Developer / Data Scientist"]):::person
+    lib(["Transformers Library"]):::system
+    hub(["Hugging Face Hub"]):::external
+    ds(["Datasets Library"]):::external
+    accel(["Accelerate"]):::external
+    peft(["PEFT"]):::external
+    engines(["Export / Inference Engines\nONNX Runtime, TensorRT, TFLite"]):::external
+
+    user -->|uses API / CLI| lib
+    lib <--> |pull / push models & artifacts| hub
+    lib <--> |load datasets| ds
+    lib <--> |orchestrate distributed / device placement| accel
+    lib <--> |parameter-efficient fine-tuning| peft
+    lib --> |export optimized graphs| engines
+    engines --> |serve / infer| user
+
+classDef person fill:#f6f7fb,stroke:#3b5bdb,stroke-width:1px,color:#1c1c1c
+classDef system fill:#e7f5ff,stroke:#1c7ed6,stroke-width:1px,color:#1c1c1c
+classDef external fill:#fff4e6,stroke:#e8590c,stroke-width:1px,color:#1c1c1c

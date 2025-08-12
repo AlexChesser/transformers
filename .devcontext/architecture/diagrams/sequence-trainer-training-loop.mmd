@@ -1,0 +1,27 @@
+%% Sequence: Trainer training loop
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant Tr as Trainer
+    participant DL as DataLoader
+    participant M as Model
+    participant A as Accelerator
+    participant O as Optimizer/Scheduler
+
+    U->>Tr: init Trainer(model, args, data, ...)
+    Tr->>A: prepare(model, dataloader, optimizer)
+    A-->>Tr: prepared components
+    loop epochs
+        Tr->>DL: next batch
+        DL-->>Tr: batch
+        Tr->>M: forward(batch)
+        M-->>Tr: loss, logits
+        Tr->>A: backward(loss)
+        A-->>Tr: gradients applied
+        Tr->>O: optimizer.step() + scheduler.step()
+        Tr->>M: zero_grad()
+        opt logging/eval/save
+            Tr->>Tr: log metrics / eval / checkpoint
+        end
+    end
+    Tr-->>U: trained model / checkpoints
