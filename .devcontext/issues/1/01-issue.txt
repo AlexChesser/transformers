@@ -1,0 +1,36 @@
+# Feature request
+
+A pre-configured Docker devcontainer with all necessary dependencies, CUDA support, and pre-commit hooks. This standardizes the development environment, simplifying onboarding for new contributors and ensuring consistency across projects.
+
+## Motivation
+
+Contributing to Transformers can be slowed by complex local setup—CUDA dependencies, version mismatches, and pre-commit tooling often create a steep onboarding curve and inconsistent contributor environments.
+
+A **pre-configured Docker devcontainer** would:
+
+* Standardize the development environment across platforms.
+* Eliminate common setup errors and “works on my machine” issues.
+* Reduce onboarding time for new contributors.
+* Ensure consistent pre-commit and linting enforcement.
+
+This proposal builds on lessons learned from [`xformers-devcontainer`](https://github.com/AlexChesser/xformers-devcontainer), which has shown that packaging all dependencies (including CUDA) into a ready-to-use container dramatically accelerates contributor productivity.
+
+In addition, a reproducible devcontainer could enable **AI agents** to perform automated testing, prepare pull requests, or even contribute autonomously—something only possible with a deterministic, standardized environment.
+
+The MVP will target **Windows 11 Pro (WSL) + CUDA**, with a design that can be extended to:
+
+* Linux + CUDA
+* Linux CPU-only
+* macOS on Apple Silicon (CPU-only)
+* WSL CPU-only
+
+## Your contribution
+
+I am the creator of [`xformers-devcontainer`](https://github.com/AlexChesser/xformers-devcontainer), a pre-configured development container for Meta’s `xformers` library. That project gave me experience with building GPU-enabled, lint-enforced development environments that work across different contributor setups.
+
+I would like to bring a similar approach to `transformers`, adapting the patterns and tooling from `xformers-devcontainer` to meet the specific needs of this repository. I’m happy to take ownership of the initial implementation and work with the community to ensure it’s easy to maintain and extend.
+
+**Potential alternatives**
+
+* Continue with contributors setting up their local environments manually, which works well for many but can present a learning curve for some.
+* Offer a partial Dockerfile without a devcontainer configuration, which would simplify dependency management but not fully standardize the development experience.
