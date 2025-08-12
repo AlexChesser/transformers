@@ -14,7 +14,8 @@ sequenceDiagram
     C-->>A: file paths
     A-->>U: instantiated model/tokenizer
 
-    U->>A: save_pretrained(...); push_to_hub()
+    U->>A: save_pretrained(...)
+    U->>A: push_to_hub()
     A->>H: create repo (if needed)
     A->>H: upload config, weights, tokenizer
     H-->>U: repo URL / revision
